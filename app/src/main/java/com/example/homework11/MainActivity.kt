@@ -15,46 +15,8 @@ import org.json.JSONArray
 import org.json.JSONException
 
 class MainActivity : AppCompatActivity() {
-
-    private lateinit var binding : ActivityMainBinding
-    private lateinit var adapter: RecyclerViewAdapter
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-
-        CoroutineScope(Dispatchers.IO).launch {
-            var items = getitems()
-
-            CoroutineScope(Dispatchers.Main).launch {
-
-
-                    adapter = RecyclerViewAdapter(items)
-                    binding.recyclerView.layoutManager = GridLayoutManager(this@MainActivity, 2)
-                    binding.recyclerView.adapter = adapter
-
-            }
-
-
-
-        }
-
-    }
-
-
-
-    private suspend fun getitems(): List<Model>? {
-        val result =  RetrofitService.RetrofitService().getCountry()
-        if(result.isSuccessful){
-            var items =  result.body()
-
-            return items
-
-        }else{
-           return null
-        }
-
+        setContentView(R.layout.activity_main)
     }
 }
